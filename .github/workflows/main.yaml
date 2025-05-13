@@ -12,14 +12,19 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - id: bump-version
+        run: |
+          ./bump_version.sh
+          cat package.json
+          "version=(npm pkg get version --workspaces=false | tr -d \")" >> "$GITHUB_OUTPUT"
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v2
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          name: ${{ github.ref }}
+          tag_name: ${{ steps.bump-version.outputs.version }}
+          name: ${{ steps.bump-version.outputs.version }}
           body: ""
           draft: false
           prerelease: false
