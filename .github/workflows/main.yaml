@@ -16,7 +16,7 @@ jobs:
       - shell: bash
         run: |
           GITHUB_RELEASE_TAG="${{ github.event.release.tag_name }}"
-          sed -i 's/"version": "0.0.0"/"version": "'"$GITHUB_RELEASE_TAG"'"/g' package.json
+          sed -i '' 's/0.0.0/'"$GITHUB_RELEASE_TAG"'/g' package.json
           cat package.json
       - run: npm ci
       - run: npm publish
