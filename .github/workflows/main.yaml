@@ -18,8 +18,9 @@ jobs:
           fetch-tags: 'true'
       - id: bump-version
         run: |
+          git tag --sort=committerdate
+          echo ">>>>>>>"
           ./bump_version.sh
-          cat package.json
           echo "version=$(npm pkg get version --workspaces=false | tr -d \")" >> "$GITHUB_OUTPUT"
       - name: Create Release
         id: create_release
