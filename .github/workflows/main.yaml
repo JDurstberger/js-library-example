@@ -12,7 +12,7 @@ jobs:
     permissions:
       contents: write
     outputs:
-      version: ${{ steps.create-release.outputs.id }}
+      version: ${{ steps.bump-version.outputs.version }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
