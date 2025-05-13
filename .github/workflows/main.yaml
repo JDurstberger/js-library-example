@@ -46,6 +46,8 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: ./.github/actions/asdf-cached-install
       - shell: bash
         run: npm version --no-git-tag-version ${{needs.release.outputs.version}}
