@@ -9,6 +9,8 @@ jobs:
   build:
     name: Create Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -16,7 +18,7 @@ jobs:
         run: |
           ./bump_version.sh
           cat package.json
-          echo "version=(npm pkg get version --workspaces=false | tr -d \")" >> "$GITHUB_OUTPUT"
+          echo "version=$(npm pkg get version --workspaces=false | tr -d \")" >> "$GITHUB_OUTPUT"
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v2
