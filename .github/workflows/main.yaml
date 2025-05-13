@@ -13,6 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/asdf-cached-install
+      - shell: bash
+        run: |
+          GITHUB_RELEASE_TAG="${{ github.event.release.tag_name }}"
+          sed -i 's/"version": "0.0.0"/"version": "'"$GITHUB_RELEASE_TAG"'"/g' package.json
+          cat package.json
       - run: npm ci
       - run: npm publish
         env:
