@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      packages: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -20,7 +21,6 @@ jobs:
       - id: bump-version
         run: |
           git tag --sort=committerdate
-          echo ">>>>>>>"
           ./bump_version.sh
           echo "version=$(npm pkg get version --workspaces=false | tr -d \")" >> "$GITHUB_OUTPUT"
       - name: Create Release
@@ -34,3 +34,7 @@ jobs:
           body: ""
           draft: false
           prerelease: false
+      - run: npm ci
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
