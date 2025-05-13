@@ -1,23 +1,25 @@
-name: Publish package to GitHub Packages
+name: Create Release
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main
 
 jobs:
   build:
+    name: Create Release
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/asdf-cached-install
-      - shell: bash
-        run: ./replace_version.sh ${{ github.event.release.tag_name }}
-      - shell: bash
-        run: cat package.json
-      - run: npm ci
-      - run: npm publish
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }}
+          name: ${{ github.ref }}
+          body: ""
+          draft: false
+          prerelease: false
