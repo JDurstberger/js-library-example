@@ -1,0 +1,19 @@
+{
+  "name": "@jdurstberger/js-lib-example",
+  "version": "1.0.0",
+  "description": "A simple JavaScript library",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JDurstberger/js-lib-example.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
