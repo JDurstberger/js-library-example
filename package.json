@@ -15,5 +15,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@jdurstberger/js-lib-example": "^0.0.0"
+  }
 }

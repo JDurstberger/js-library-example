@@ -7,19 +7,12 @@ on:
 
 jobs:
   release:
-    name: Create Release
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-    outputs:
-      version: ${{ steps.bump-version.outputs.version }}
+      contents: read
+      packages: read
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: '0'
-          fetch-tags: true
-      - id: bump-version
-        run: |
-          git tag --sort=committerdate
-          ./bump_version.sh
+      - uses: ./.github/actions/asdf-cached-install
+      - run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
