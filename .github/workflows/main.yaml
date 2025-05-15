@@ -1,4 +1,4 @@
-name: Create Release
+name: Main
 
 on:
   push:
@@ -12,6 +12,7 @@ jobs:
       contents: read
       packages: read
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/asdf-cached-install
       - run: npm ci
         env:
