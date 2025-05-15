@@ -23,15 +23,3 @@ jobs:
         run: |
           git tag --sort=committerdate
           ./bump_version.sh
-      - name: Create Release
-        id: create-release
-        uses: softprops/action-gh-release@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.bump-version.outputs.version }}
-          name: ${{ steps.bump-version.outputs.version }}
-          body: ""
-          draft: false
-          prerelease: false
-          generate_release_notes: true
